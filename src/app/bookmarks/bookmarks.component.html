@@ -1,0 +1,7 @@
+<p>bookmarks works!</p>
+<div *ngFor="let bookmark of bookmarks$ | async">
+  <button (click)="dispatchEdit(bookmark)">
+    {{ bookmark.name }}
+  </button>
+</div>
+<button (click)="dispatchAdd()">ADD</button>
