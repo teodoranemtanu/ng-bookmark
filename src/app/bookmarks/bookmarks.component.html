@@ -1,19 +1,24 @@
-<main class="main-content">
-  <ng-container *ngIf="searchActive$ | async; else groupView">
-    <div *ngIf="searchResult$ | async as searchResults" class="groups-container">
-      <app-group [bookmarks]="searchResults" header="Search results:"></app-group>
-    </div>
-  </ng-container>
+<ng-container *ngIf="(isLoading$ | async) === BookmarksStatus.loading; else content">
+  <app-loading-spinner></app-loading-spinner>
+</ng-container>
+<ng-template #content>
+  <main class="main-content">
+    <ng-container *ngIf="searchActive$ | async; else groupView">
+      <div *ngIf="searchResult$ | async as searchResults" class="groups-container">
+        <app-group [bookmarks]="searchResults" header="Search results:"></app-group>
+      </div>
+    </ng-container>
 
-  <ng-template #groupView>
-    <div *ngIf="groupedBookmarks$ | async as groupedBookmarks" class="groups-container">
-      <app-group *ngFor="let group of groupedBookmarks | keyvalue: sortGroupsByKeyAsc" [bookmarks]="group.value" [header]="labels.groups[group.key]| titlecase">
-      </app-group>
-    </div>
-  </ng-template>
-</main>
-<footer class="footer">
-  <button id="add-bookmark" mat-fab (click)="addBookmark()">
-    <mat-icon fontIcon="add"></mat-icon>
-  </button>
-</footer>
+    <ng-template #groupView>
+      <div *ngIf="groupedBookmarks$ | async as groupedBookmarks" class="groups-container">
+        <app-group *ngFor="let group of groupedBookmarks | keyvalue: sortGroupsByKeyAsc" [bookmarks]="group.value" [header]="labels.groups[group.key]| titlecase">
+        </app-group>
+      </div>
+    </ng-template>
+  </main>
+  <footer class="footer">
+    <button id="add-bookmark" mat-fab (click)="addBookmark()">
+      <mat-icon fontIcon="add"></mat-icon>
+    </button>
+  </footer>
+</ng-template>

@@ -1,5 +1,5 @@
 
-import { selectSearchActive, selectSearchResults } from './../core/state/bookmarks/bookmark.selector';
+import { selectBookmarksStatus, selectSearchActive, selectSearchResults } from './../core/state/bookmarks/bookmark.selector';
 import { Bookmark } from './../core/models/bookmark.model';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -14,10 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { labels } from '../core/constants/labels';
+import { BookmarksStatus } from '../core/enums/bookmarks-status.enum';
+import { LoadingSpinnerComponent } from '../common/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-bookmarks',
-  imports: [CommonModule, TitleCasePipe, GroupComponent, MatButtonModule, MatIconModule],
+  imports: [CommonModule, TitleCasePipe, GroupComponent, MatButtonModule, MatIconModule, LoadingSpinnerComponent],
   templateUrl: './bookmarks.component.html',
   styleUrl: './bookmarks.component.scss'
 })
@@ -31,8 +33,10 @@ export class BookmarksComponent {
 
   searchResult$: Observable<Bookmark[]>;
   searchActive$: Observable<boolean>;
+  isLoading$: Observable<BookmarksStatus>;
 
   labels = labels;
+  BookmarksStatus = BookmarksStatus;
 
   constructor(
     private store: Store<AppState>,
@@ -42,6 +46,7 @@ export class BookmarksComponent {
     this.groupedBookmarks$ = this.store.select(selectGroupedBookmarks);
     this.searchActive$ = this.store.select(selectSearchActive);
     this.searchResult$ = this.store.select(selectSearchResults);
+    this.isLoading$ = this.store.select(selectBookmarksStatus);
   }
 
   ngOnInit() {
