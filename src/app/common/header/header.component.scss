@@ -1,0 +1,43 @@
+@use "@angular/material" as mat;
+
+mat-toolbar {
+  display: flex;
+  align-items: center;
+
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: var(--mat-sys-primary),
+      container-text-color: var(--mat-sys-on-primary)
+    )
+  );
+
+  @include mat.icon-button-overrides(
+    (
+      icon-color: var(--mat-sys-on-primary)
+    )
+  );
+}
+
+mat-icon {
+  color: var(--mat-sys-on-primary);
+}
+
+mat-form-field {
+  @include mat.form-field-overrides(
+    (
+      filled-caret-color: var(--mat-sys-primary),
+      filled-container-color: var(--mat-sys-primary),
+      filled-input-text-color: var(--mat-sys-on-primary),
+      filled-input-text-placeholder-color: var(--mat-sys-on-primary),
+      filled-focus-active-indicator-color: var(--mat-sys-on-primary)
+    )
+  );
+}
+
+.search-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

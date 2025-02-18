@@ -33,12 +33,8 @@ export class BookmarkEffects {
     return this.actions$.pipe(
       ofType(bookmarkActions.add),
       switchMap((action) => {
-        return this.bookmarkService.create({
-          name: action.name,
-          url: action.url,
-          date: new Date(),
-          id: uuidv4()
-        }).pipe(
+        const bookmarkToCreate = { name: action.name, url: action.url, date: new Date(), id: uuidv4() };
+        return this.bookmarkService.create(bookmarkToCreate).pipe(
           map(result => {
             return bookmarkActions.addSuccess({ bookmark: result })
           }),
@@ -53,9 +49,10 @@ export class BookmarkEffects {
     return this.actions$.pipe(
       ofType(bookmarkActions.edit),
       switchMap((action) => {
-        return this.bookmarkService.update(action.bookmark).pipe(
+        const bookmarkToEdit = action.bookmark;
+        return this.bookmarkService.update(bookmarkToEdit).pipe(
           map(() => {
-            return bookmarkActions.editSuccess({ bookmark: action.bookmark })
+            return bookmarkActions.editSuccess({ bookmark: bookmarkToEdit })
           }),
           catchError(error => { console.log(error); return of(bookmarkActions.addFailure({ error })) }
           )

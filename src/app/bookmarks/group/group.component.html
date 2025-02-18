@@ -1,0 +1,21 @@
+<h3> {{ header }}</h3>
+<mat-card *ngFor="let bookmark of bookmarks" class="group-card">
+  <div class="grid-item full-center">
+    <mat-icon fontIcon="bookmark"> </mat-icon>
+  </div>
+  <div class="grid-item">
+    <mat-card-header>
+      <span class="bookmark-name">
+        {{ bookmark.name }}
+      </span>
+    </mat-card-header>
+    <mat-card-content>
+      <a [href]="bookmark.url">
+        {{ bookmark. url }}
+      </a>
+    </mat-card-content>
+  </div>
+  <div class="grid-item full-center">
+    <mat-icon fontIcon="edit"> </mat-icon>
+  </div>
+</mat-card>

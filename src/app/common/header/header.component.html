@@ -1,0 +1,15 @@
+<mat-toolbar class="header">
+  <span class="title">{{ title }}</span>
+  <div class="search-container">
+    <mat-form-field *ngIf="showSearch" subscriptSizing="dynamic">
+      <mat-icon matPrefix fontIcon="search"> </mat-icon>
+      <input matInput type="text" [placeholder]="searchLabel" maxlength="45" [(ngModel)]="value" />
+
+      @if (value) {
+      <button matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+        <mat-icon fontIcon="close"></mat-icon>
+      </button>
+      }
+    </mat-form-field>
+  </div>
+</mat-toolbar>

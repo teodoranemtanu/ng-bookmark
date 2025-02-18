@@ -1,0 +1,16 @@
+mat-card {
+  margin: 12px;
+}
+
+.group-card {
+  display: grid;
+  grid-template-columns: 70px auto 70px;
+}
+
+.grid-item mat-icon {
+  color: var(--mat-sys-tertiary);
+}
+
+.bookmark-name {
+  font-weight: bold;
+}

@@ -1,7 +1,8 @@
-<p>bookmarks works!</p>
-<div *ngFor="let bookmark of bookmarks$ | async">
-  <button (click)="dispatchEdit(bookmark)">
-    {{ bookmark.name }}
-  </button>
+<app-header title="{{ 'Bookmarker' | titlecase }}" searchLabel="Search bookmark..."></app-header>
+
+<div class="content">
+  <div *ngIf="groupedBookmarks$ | async as groupedBookmarks" class="groups-container">
+    <app-group *ngFor="let group of groupedBookmarks | keyvalue: sortGroups" [bookmarks]="group.value" [header]="group.key | titlecase">
+    </app-group>
+  </div>
 </div>
-<button (click)="dispatchAdd()">ADD</button>
