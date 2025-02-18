@@ -1,12 +1,15 @@
+import { query } from '@angular/animations';
 import { BookmarkService } from './../../services/bookmark.service';
 import { inject, Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "../app.state";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as bookmarkActions from './bookmarks.actions';
-import { catchError, map, switchMap, takeLast, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
 import { of } from 'rxjs';
+import { selectAllBookmarks } from './bookmark.selector';
+import { FuzzySearchService } from '../../services/fuzzy-search.service';
 
 @Injectable()
 export class BookmarkEffects {
@@ -14,7 +17,8 @@ export class BookmarkEffects {
 
   constructor(
     private store: Store<AppState>,
-    private bookmarkService: BookmarkService
+    private bookmarkService: BookmarkService,
+    private fuzzy: FuzzySearchService
   ) { }
 
   loadBookmarks$ = createEffect(() => {
@@ -58,6 +62,21 @@ export class BookmarkEffects {
           )
         )
       })
+    )
+  });
+
+  searchBookmarks = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(bookmarkActions.search),
+      map(action => action.query),
+      mergeMap(query => this.store.select(selectAllBookmarks).pipe(
+        take(1),
+        map(bookmarks => {
+          const searchResults = this.fuzzy.search(bookmarks, query, ['name', 'url']);
+          return bookmarkActions.searchSuccess({ searchResults });
+        }),
+        catchError(error => of(bookmarkActions.searchFailure({ error })))
+      ))
     )
   });
 }

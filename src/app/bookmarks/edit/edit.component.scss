@@ -1,0 +1,39 @@
+@use "@angular/material" as mat;
+
+.main-content {
+  padding-top: 1.5em;
+}
+
+.edit-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bookmark-name {
+  font-weight: bold;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  mat-form-field {
+    padding: 1em;
+  }
+}
+
+mat-card {
+  @include mat.divider-overrides(
+    (
+      color: rgba(0, 0, 0, 0.12)
+    )
+  );
+}
+
+mat-card-footer {
+  padding: 0.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

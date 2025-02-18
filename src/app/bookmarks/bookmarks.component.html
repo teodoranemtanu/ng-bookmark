@@ -1,8 +1,19 @@
-<app-header title="{{ 'Bookmarker' | titlecase }}" searchLabel="Search bookmark..."></app-header>
+<main class="main-content">
+  <ng-container *ngIf="searchActive$ | async; else groupView">
+    <div *ngIf="searchResult$ | async as searchResults" class="groups-container">
+      <app-group [bookmarks]="searchResults" header="Search results:"></app-group>
+    </div>
+  </ng-container>
 
-<div class="content">
-  <div *ngIf="groupedBookmarks$ | async as groupedBookmarks" class="groups-container">
-    <app-group *ngFor="let group of groupedBookmarks | keyvalue: sortGroups" [bookmarks]="group.value" [header]="group.key | titlecase">
-    </app-group>
-  </div>
-</div>
+  <ng-template #groupView>
+    <div *ngIf="groupedBookmarks$ | async as groupedBookmarks" class="groups-container">
+      <app-group *ngFor="let group of groupedBookmarks | keyvalue: sortGroups" [bookmarks]="group.value" [header]="group.key | titlecase">
+      </app-group>
+    </div>
+  </ng-template>
+</main>
+<footer class="footer">
+  <button id="add-bookmark" mat-fab aria-label="Add new bookmark" (click)="addBookmark()">
+    <mat-icon fontIcon="add"></mat-icon>
+  </button>
+</footer>

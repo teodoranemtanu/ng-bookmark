@@ -6,13 +6,17 @@ import { BookmarksStatus } from "../../enums/bookmarks-status.enum";
 export interface BookmarkState {
   bookmarks: Bookmark[],
   error: string | null,
-  status: BookmarksStatus
+  status: BookmarksStatus,
+  searchActive: boolean,
+  searchResults: Bookmark[]
 }
 
 export const initialState: BookmarkState = {
   bookmarks: [],
   error: null,
-  status: BookmarksStatus.pending
+  status: BookmarksStatus.pending,
+  searchActive: false,
+  searchResults: []
 }
 
 export const bookmarkReducer = createReducer(
@@ -59,5 +63,31 @@ export const bookmarkReducer = createReducer(
     ...state,
     status: BookmarksStatus.error,
     error: error
+  })),
+
+  on(bookmarkActions.search, (state, { query }) => ({
+    ...state,
+    status: BookmarksStatus.loading,
+    searchActive: true
+  })),
+  on(bookmarkActions.searchSuccess, (state, { searchResults }) => ({
+    ...state,
+    status: BookmarksStatus.success,
+    searchActive: true,
+    searchResults
+  })),
+  on(bookmarkActions.searchFailure, (state, { error }) => ({
+    ...state,
+    status: BookmarksStatus.error,
+    error: error,
+    searchActive: true,
+    searchResults: []
+  })),
+  on(bookmarkActions.clearSearch, (state) => ({
+    ...state,
+    status: BookmarksStatus.success,
+    error: null,
+    searchActive: false,
+    searchResults: []
   }))
 );

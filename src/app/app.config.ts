@@ -12,6 +12,7 @@ import { provideEffects } from '@ngrx/effects';
 import { bookmarkReducer } from './core/state/bookmarks/bookmark.reducer';
 import { BookmarkEffects } from './core/state/bookmarks/bookmark.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 
 
 export const appConfig: ApplicationConfig = {
@@ -23,8 +24,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom([
       HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
     ]),
-    provideStore({ bookmarks: bookmarkReducer }),
+    provideStore({ bookmarks: bookmarkReducer, router: routerReducer }),
     provideEffects(BookmarkEffects),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideRouterStore()
   ]
 };

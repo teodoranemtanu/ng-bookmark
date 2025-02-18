@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Bookmark } from '../../core/models/bookmark.model';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,6 +16,12 @@ export class GroupComponent {
   @Input() header: string = '';
   @Input() bookmarks: Bookmark[] = [];
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
+  }
+
+  goToEditPage(selectedBookmark: Bookmark) {
+    this.router.navigate(['edit', selectedBookmark.id]);
   }
 }

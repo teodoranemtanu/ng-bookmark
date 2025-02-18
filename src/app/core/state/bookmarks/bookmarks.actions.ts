@@ -44,3 +44,22 @@ export const editFailure = createAction(
   '[Bookmarks Page] Bookmark Edit Failure',
   props<{ error: string }>()
 )
+
+export const search = createAction(
+  '[Bookmarks Page] Search Bookmark',
+  props<{ query: string }>()
+)
+
+export const searchSuccess = createAction(
+  '[Bookmarks Page] Bookmark Search Success',
+  props<{ searchResults: Bookmark[] }>()
+)
+
+export const searchFailure = createAction(
+  '[Bookmarks Page] Bookmark Search Failure',
+  props<{ error: string }>()
+)
+
+export const clearSearch = createAction(
+  '[Bookmark Page] Bookmark Search Clear'
+)

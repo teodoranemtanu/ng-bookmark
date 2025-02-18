@@ -10,12 +10,12 @@
       </span>
     </mat-card-header>
     <mat-card-content>
-      <a [href]="bookmark.url">
+      <a [href]="bookmark.url" target="_blank">
         {{ bookmark. url }}
       </a>
     </mat-card-content>
   </div>
   <div class="grid-item full-center">
-    <mat-icon fontIcon="edit"> </mat-icon>
+    <mat-icon fontIcon="edit" (click)="goToEditPage(bookmark)"> </mat-icon>
   </div>
 </mat-card>
