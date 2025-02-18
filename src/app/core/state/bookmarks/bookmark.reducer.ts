@@ -1,7 +1,7 @@
-import { createReducer, on } from "@ngrx/store";
-import { Bookmark } from "../../models/bookmark.model";
-import * as bookmarkActions from "./bookmarks.actions";
-import { BookmarksStatus } from "../../enums/bookmarks-status.enum";
+import { createReducer, on } from '@ngrx/store';
+import { Bookmark } from '../../models/bookmark.model';
+import * as bookmarkActions from './bookmarks.actions';
+import { BookmarksStatus } from '../../enums/bookmarks-status.enum';
 
 export interface BookmarkState {
   bookmarks: Bookmark[],

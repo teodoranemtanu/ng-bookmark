@@ -1,5 +1,5 @@
-import { createAction, props } from "@ngrx/store";
-import { Bookmark } from "../../models/bookmark.model";
+import { createAction, props } from '@ngrx/store';
+import { Bookmark } from '../../models/bookmark.model';
 
 export const add = createAction(
   '[Bookmark Page] Add bookmark',

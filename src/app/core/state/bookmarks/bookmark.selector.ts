@@ -1,10 +1,10 @@
-import { createSelector } from "@ngrx/store";
-import { AppState } from "../app.state";
-import { BookmarkState } from "./bookmark.reducer";
-import dayjs from 'dayjs';
-import { GroupTypes } from "../../enums/group-types.enum";
-import { Bookmark } from "../../models/bookmark.model";
-import { selectRouteParams } from "../router/router.selectors";
+import { createSelector } from '@ngrx/store';
+import { AppState } from '../app.state';
+import { BookmarkState } from './bookmark.reducer';
+import { GroupTypes } from '../../enums/group-types.enum';
+import { Bookmark } from '../../models/bookmark.model';
+import { selectRouteParams } from '../router/router.selectors';
+import { getCurrentGroupType } from '../../../utils/bookmark-group-utils';
 
 export const selectBookmarks = (state: AppState) => state.bookmarks;
 
@@ -38,20 +38,6 @@ export const selectBookmarkById = createSelector(
   selectRouteParams,
   (bookmarks, { bookmarkId }) => bookmarks.find(item => item.id === bookmarkId) || null
 );
-
-
-//TODO move utils functions to correct service
-const isDateToday = (dateToCheck: Date): boolean => dayjs().isSame(dateToCheck, 'day');
-const isDateYesterday = (dateToCheck: Date): boolean => dayjs().subtract(1, 'day').isSame(dateToCheck, 'day');
-
-const getCurrentGroupType = (bookmarkDate: Date) => {
-  if (isDateToday(bookmarkDate)) {
-    return GroupTypes.today;
-  } else if (isDateYesterday(bookmarkDate)) {
-    return GroupTypes.yesterday;
-  }
-  return GroupTypes.others;
-};
 
 export const selectGroupedBookmarks = createSelector(
   selectAllBookmarks,

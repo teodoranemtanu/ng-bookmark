@@ -16,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import * as bookmarkActions from '../../core/state/bookmarks/bookmarks.actions';
 import { labels } from '../../core/constants/labels';
+import { isValidUrl } from '../../utils/string-utils';
 
 @Component({
   selector: 'app-edit',
@@ -27,6 +28,10 @@ export class EditComponent implements OnInit {
   bookmark$: Observable<Bookmark | null>;
   editedBookmark: Bookmark;
   labelsPath: any;
+
+  isUpdateButtonDisabled: boolean = false;
+
+  urlPattern = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)?/
 
   constructor(
     private store: Store<AppState>,
@@ -46,6 +51,14 @@ export class EditComponent implements OnInit {
   }
 
   async updateBookmark() {
+    if (!this.editedBookmark.name || !this.editedBookmark.url) {
+      return;
+    }
+
+    if (!isValidUrl(this.editedBookmark.url, this.urlPattern)) {
+      return;
+    }
+
     if (this.router.url.includes('new')) {
       this.store.dispatch(bookmarkActions.add({ name: this.editedBookmark.name, url: this.editedBookmark.url }));
     } else {

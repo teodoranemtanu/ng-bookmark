@@ -6,7 +6,12 @@ export const labels = {
       url: 'Url'
     },
     description: 'Type name and url',
-    save: 'Create bookmark'
+    save: 'Create bookmark',
+    errors: {
+      nameRequired: 'Bookmark name is required',
+      urlRequired: 'Bookmark url is required',
+      urlIncorrect: 'Bookmark url is not correct'
+    }
   },
   edit: {
     title: 'Edit Existing bookmark',
@@ -15,7 +20,12 @@ export const labels = {
       url: 'Url'
     },
     description: 'Type name and url',
-    save: 'Update bookmark'
+    save: 'Update bookmark',
+    errors: {
+      nameRequired: 'Bookmark name is required',
+      urlRequired: 'Bookmark url is required',
+      urlIncorrect: 'Bookmark url is not correct'
+    }
   },
   search: {
     placeholder: 'Search bookmark...'

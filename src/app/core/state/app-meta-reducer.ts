@@ -1,5 +1,5 @@
 import { bookmarkReducer } from './bookmarks/bookmark.reducer';
-import { ActionReducer, ActionReducerMap, MetaReducer, StoreConfig } from "@ngrx/store";
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { AppState } from './app.state';
 

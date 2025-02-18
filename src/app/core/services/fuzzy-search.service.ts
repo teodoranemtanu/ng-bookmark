@@ -11,7 +11,10 @@ export class FuzzySearchService {
   search(items: Bookmark[], query: string, keys: string[]) {
     const options = {
       keys,
-      threshold: 0.6
+      threshold: 0.5,
+      isCaseSensitive: false,
+      shouldSort: true,
+      ignoreLocation: true
     };
 
     const fuse = new Fuse(items, options);

@@ -3,5 +3,3 @@ export enum GroupTypes {
   yesterday,
   others
 }
-
-

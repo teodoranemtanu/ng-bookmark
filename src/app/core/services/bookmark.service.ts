@@ -13,7 +13,6 @@ export interface SearchBookmarkParams {
   providedIn: 'root'
 })
 export class BookmarkService {
-  //TODO move to an enviroment file
   private bookmarksUrl = 'api/bookmarks';
 
   constructor(
@@ -29,6 +28,6 @@ export class BookmarkService {
   }
 
   update(body: Bookmark) {
-    return this.http.put<null>(`${this.bookmarksUrl}/${body.id}`, body);
+    return this.http.put<Bookmark>(`${this.bookmarksUrl}/${body.id}`, body);
   }
 }

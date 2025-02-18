@@ -1,8 +1,7 @@
-import { query } from '@angular/animations';
 import { BookmarkService } from './../../services/bookmark.service';
-import { inject, Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { AppState } from "../app.state";
+import { inject, Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.state';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as bookmarkActions from './bookmarks.actions';
 import { catchError, map, mergeMap, switchMap, take } from 'rxjs/operators';

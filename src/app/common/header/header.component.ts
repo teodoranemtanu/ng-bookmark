@@ -81,6 +81,13 @@ export class HeaderComponent {
     this.searchTextSubject.next(value);
   }
 
+  redirectToMainPage() {
+    if (this.router.url === '/') {
+      return;
+    }
+    this.router.navigate(['/']);
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
