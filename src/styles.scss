@@ -35,10 +35,25 @@ body {
   overflow-y: auto;
 }
 
+@media (max-width: 480px) {
+  .large-margin {
+    margin-top: 15vh;
+  }
+  .small-margin {
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-bottom: 140px;
+  }
+}
+
 .ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   display: inline-block;
-  width: 95%;
+  width: 85%;
 }

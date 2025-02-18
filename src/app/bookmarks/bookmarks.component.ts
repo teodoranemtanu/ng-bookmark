@@ -40,7 +40,7 @@ export class BookmarksComponent {
 
   constructor(
     private store: Store<AppState>,
-    private router: Router
+    public router: Router
   ) {
     this.bookmarks$ = this.store.select(selectAllBookmarks);
     this.groupedBookmarks$ = this.store.select(selectGroupedBookmarks);
@@ -57,8 +57,6 @@ export class BookmarksComponent {
     this.store.dispatch(bookmarkActions.clearSearch());
     this.router.navigate(['new']);
   }
-
-  sortGroups = () => 0;
 
   sortGroupsByKeyAsc = (a: KeyValue<GroupTypes, Bookmark[]>, b: KeyValue<GroupTypes, Bookmark[]>): number => {
     return a.key - b.key;

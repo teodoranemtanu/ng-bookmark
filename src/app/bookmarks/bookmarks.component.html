@@ -2,7 +2,7 @@
   <app-loading-spinner></app-loading-spinner>
 </ng-container>
 <ng-template #content>
-  <main class="main-content">
+  <main class="main-content" [ngClass]="router.url === '/' ? 'large-margin' : 'small-margin'">
     <ng-container *ngIf="searchActive$ | async; else groupView">
       <div *ngIf="searchResult$ | async as searchResults" class="groups-container">
         <app-group [bookmarks]="searchResults" header="Search results:"></app-group>

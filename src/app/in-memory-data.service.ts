@@ -31,7 +31,7 @@ export class InMemoryDataService {
         id: 'c48ee34d-62e5-48a8-81ac-6d4b94146656', name: 'Angular Material', url: 'https://material.angular.io/', date: dayjs().subtract(3, 'day').toDate()
       },
       {
-        id: 'c48ee34d-62e5-48a8-81ac-6d4b94146656', name: 'MDN', url: 'https://developer.mozilla.org/en-US/', date: dayjs().subtract(4, 'day').toDate()
+        id: 'c48ee34d-62e5-48a8-81ac-6d4b23146656', name: 'MDN', url: 'https://developer.mozilla.org/en-US/', date: dayjs().subtract(4, 'day').toDate()
       },
     ];
     return { bookmarks };

@@ -10,18 +10,21 @@
         </span>
       </mat-card-header>
       <mat-card-content class="form-container">
-        <mat-form-field subscriptSizing="dynamic">
+        <mat-form-field>
           <mat-icon matPrefix fontIcon="search"> </mat-icon>
-          <input matInput type="text" maxlength="45" [placeholder]="labelsPath.placeholders.name" [(ngModel)]="editedBookmark.name" />
+          <input matInput required type="text" maxlength="45" [placeholder]="labelsPath.placeholders.name" [(ngModel)]="editedBookmark.name" />
+          <mat-error *ngIf="!editedBookmark.name"> {{ labelsPath.errors.nameRequired }} </mat-error>
         </mat-form-field>
-        <mat-form-field subscriptSizing="dynamic" class="url">
+        <mat-form-field class="url">
           <mat-icon matPrefix fontIcon="search"> </mat-icon>
-          <input matInput type="text" maxlength="45" [placeholder]="labelsPath.placeholders.url" [(ngModel)]="editedBookmark.url" />
+          <input matInput required type="text" maxlength="45" [placeholder]="labelsPath.placeholders.url" [(ngModel)]="editedBookmark.url" [pattern]="urlPattern" />
+          <mat-error *ngIf="!editedBookmark.url"> {{ labelsPath.errors.urlRequired }} </mat-error>
+          <mat-error> {{ labelsPath.errors.urlIncorrect }} </mat-error>
         </mat-form-field>
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-footer>
-        <button mat-button (click)="updateBookmark()"> {{ labelsPath.save | titlecase }}</button>
+        <button mat-button [disabled]="isUpdateButtonDisabled" (click)="updateBookmark()"> {{ labelsPath.save | titlecase }}</button>
       </mat-card-footer>
     </mat-card>
   </div>
