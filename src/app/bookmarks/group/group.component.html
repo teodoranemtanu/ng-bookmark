@@ -5,13 +5,13 @@
   </div>
   <div class="grid-item">
     <mat-card-header>
-      <span class="bookmark-name">
+      <span class="bookmark-name ellipsis">
         {{ bookmark.name }}
       </span>
     </mat-card-header>
     <mat-card-content>
-      <a [href]="bookmark.url" target="_blank">
-        {{ bookmark. url }}
+      <a [href]="bookmark.url" class="ellipsis" target="_blank">
+        {{ bookmark.url }}
       </a>
     </mat-card-content>
   </div>
