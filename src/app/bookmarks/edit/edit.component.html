@@ -1,27 +1,27 @@
 <main class="main-content">
   <div *ngIf="bookmark$ | async as bookmark" class="edit-container">
     <h3>
-      {{ 'edit existing bookmark' | titlecase}}
+      {{ labelsPath.title | titlecase}}
     </h3>
     <mat-card>
       <mat-card-header>
         <span>
-          Type bookmark name and url
+          {{ labelsPath.description }}
         </span>
       </mat-card-header>
       <mat-card-content class="form-container">
         <mat-form-field subscriptSizing="dynamic">
           <mat-icon matPrefix fontIcon="search"> </mat-icon>
-          <input matInput type="text" maxlength="45" [(ngModel)]="editedBookmark.name" />
+          <input matInput type="text" maxlength="45" [placeholder]="labelsPath.placeholders.name" [(ngModel)]="editedBookmark.name" />
         </mat-form-field>
         <mat-form-field subscriptSizing="dynamic" class="url">
           <mat-icon matPrefix fontIcon="search"> </mat-icon>
-          <input matInput type="text" maxlength="45" [(ngModel)]="editedBookmark.url" />
+          <input matInput type="text" maxlength="45" [placeholder]="labelsPath.placeholders.url" [(ngModel)]="editedBookmark.url" />
         </mat-form-field>
       </mat-card-content>
       <mat-divider></mat-divider>
       <mat-card-footer>
-        <button mat-button (click)="updateBookmark()"> {{ 'Update bookmark' | titlecase }}</button>
+        <button mat-button (click)="updateBookmark()"> {{ labelsPath.save | titlecase }}</button>
       </mat-card-footer>
     </mat-card>
   </div>

@@ -7,13 +7,13 @@
 
   <ng-template #groupView>
     <div *ngIf="groupedBookmarks$ | async as groupedBookmarks" class="groups-container">
-      <app-group *ngFor="let group of groupedBookmarks | keyvalue: sortGroups" [bookmarks]="group.value" [header]="group.key | titlecase">
+      <app-group *ngFor="let group of groupedBookmarks | keyvalue: sortGroupsByKeyAsc" [bookmarks]="group.value" [header]="labels.groups[group.key]| titlecase">
       </app-group>
     </div>
   </ng-template>
 </main>
 <footer class="footer">
-  <button id="add-bookmark" mat-fab aria-label="Add new bookmark" (click)="addBookmark()">
+  <button id="add-bookmark" mat-fab (click)="addBookmark()">
     <mat-icon fontIcon="add"></mat-icon>
   </button>
 </footer>

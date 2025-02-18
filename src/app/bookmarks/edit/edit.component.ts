@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import * as bookmarkActions from '../../core/state/bookmarks/bookmarks.actions';
+import { labels } from '../../core/constants/labels';
 
 @Component({
   selector: 'app-edit',
@@ -22,9 +23,10 @@ import * as bookmarkActions from '../../core/state/bookmarks/bookmarks.actions';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
-export class EditComponent {
+export class EditComponent implements OnInit {
   bookmark$: Observable<Bookmark | null>;
   editedBookmark: Bookmark;
+  labelsPath: any;
 
   constructor(
     private store: Store<AppState>,
@@ -37,6 +39,10 @@ export class EditComponent {
       })
     ));
     this.editedBookmark = { id: '', name: '', url: '', date: new Date() };
+  }
+
+  ngOnInit(): void {
+    this.labelsPath = this.router.url.includes('new') ? labels.new : labels.edit;
   }
 
   async updateBookmark() {

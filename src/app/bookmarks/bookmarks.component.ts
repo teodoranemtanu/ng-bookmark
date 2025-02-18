@@ -1,17 +1,19 @@
+
 import { selectSearchActive, selectSearchResults } from './../core/state/bookmarks/bookmark.selector';
 import { Bookmark } from './../core/models/bookmark.model';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as bookmarkActions from '../core/state/bookmarks/bookmarks.actions';
 import { selectAllBookmarks, selectGroupedBookmarks } from '../core/state/bookmarks/bookmark.selector';
-import { forkJoin, map, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AppState } from '../core/state/app.state';
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { CommonModule, KeyValue, TitleCasePipe } from '@angular/common';
 import { GroupComponent } from './group/group.component';
-import { GroupLabels } from '../core/enums/group-labels.enum';
+import { GroupTypes } from '../core/enums/group-types.enum';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { labels } from '../core/constants/labels';
 
 @Component({
   selector: 'app-bookmarks',
@@ -22,13 +24,15 @@ import { Router } from '@angular/router';
 export class BookmarksComponent {
   bookmarks$: Observable<Bookmark[]>;
   bookmarks: Bookmark[] = [];
-  groupedByDateBookmarks: Map<GroupLabels, Bookmark[]> = new Map();
-  GroupLabels = GroupLabels;
+  groupedByDateBookmarks: Map<GroupTypes, Bookmark[]> = new Map();
+  GroupTypes = GroupTypes;
 
-  groupedBookmarks$: Observable<Map<GroupLabels, Bookmark[]>>;
+  groupedBookmarks$: Observable<Map<GroupTypes, Bookmark[]>>;
 
   searchResult$: Observable<Bookmark[]>;
   searchActive$: Observable<boolean>;
+
+  labels = labels;
 
   constructor(
     private store: Store<AppState>,
@@ -50,4 +54,8 @@ export class BookmarksComponent {
   }
 
   sortGroups = () => 0;
+
+  sortGroupsByKeyAsc = (a: KeyValue<GroupTypes, Bookmark[]>, b: KeyValue<GroupTypes, Bookmark[]>): number => {
+    return a.key - b.key;
+  }
 }

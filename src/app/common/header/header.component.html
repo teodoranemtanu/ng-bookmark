@@ -3,7 +3,7 @@
   <div class="search-container">
     <mat-form-field *ngIf="router.url === '/'" subscriptSizing="dynamic">
       <mat-icon matPrefix fontIcon="search"> </mat-icon>
-      <input #searchInput matInput type="text" [placeholder]="searchLabel" maxlength="45" [(ngModel)]="searchedText" (ngModelChange)="onSearchChange(searchedText)" />
+      <input #searchInput matInput type="text" [placeholder]="labels.search.placeholder" maxlength="45" [(ngModel)]="searchedText" (ngModelChange)="onSearchChange(searchedText)" />
 
       <button *ngIf="searchedText" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
         <mat-icon fontIcon="close"></mat-icon>

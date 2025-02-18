@@ -2,7 +2,7 @@ import { createSelector } from "@ngrx/store";
 import { AppState } from "../app.state";
 import { BookmarkState } from "./bookmark.reducer";
 import dayjs from 'dayjs';
-import { GroupLabels } from "../../enums/group-labels.enum";
+import { GroupTypes } from "../../enums/group-types.enum";
 import { Bookmark } from "../../models/bookmark.model";
 import { selectRouteParams } from "../router/router.selectors";
 
@@ -46,26 +46,25 @@ const isDateYesterday = (dateToCheck: Date): boolean => dayjs().subtract(1, 'day
 
 const getCurrentGroupType = (bookmarkDate: Date) => {
   if (isDateToday(bookmarkDate)) {
-    return GroupLabels.today;
+    return GroupTypes.today;
   } else if (isDateYesterday(bookmarkDate)) {
-    return GroupLabels.yesterday;
+    return GroupTypes.yesterday;
   }
-  return GroupLabels.others;
+  return GroupTypes.others;
 };
 
 export const selectGroupedBookmarks = createSelector(
   selectAllBookmarks,
   (bookmarks) => {
-    // const bookmarkGroups: Map<GroupLabels, Bookmark[]> = new Map();
-    const bookmarkGroups: Map<GroupLabels, Bookmark[]> = new Map([[GroupLabels.today, []], [GroupLabels.yesterday, []], [GroupLabels.others, []]]);
+    const bookmarkGroups: Map<GroupTypes, Bookmark[]> = new Map();
 
     bookmarks.forEach(bookmark => {
       const currentGroupType = getCurrentGroupType(bookmark.date);
-      // if (!bookmarkGroups.has(currentGroupType)) {
-      //   bookmarkGroups.set(currentGroupType, [bookmark]);
-      // } else {
-      bookmarkGroups.get(currentGroupType)?.push(bookmark);
-      // }
+      if (!bookmarkGroups.has(currentGroupType)) {
+        bookmarkGroups.set(currentGroupType, [bookmark]);
+      } else {
+        bookmarkGroups.get(currentGroupType)?.push(bookmark);
+      }
     });
 
     return bookmarkGroups;

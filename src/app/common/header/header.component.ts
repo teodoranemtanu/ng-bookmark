@@ -12,6 +12,7 @@ import * as bookmarkActions from '../../core/state/bookmarks/bookmarks.actions';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NavigationStart, Router } from '@angular/router';
+import { labels } from '../../core/constants/labels';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,7 @@ export class HeaderComponent {
   @Input() title: string = '';
   @Input() showSearch: boolean = true;
   @Input() searchLabel = 'Search bookmark';
+  labels = labels;
 
   private searchTextSubject = new Subject<string>();
 

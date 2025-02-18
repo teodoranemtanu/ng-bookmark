@@ -5,6 +5,7 @@ export const labels = {
       name: 'Name',
       url: 'Url'
     },
+    description: 'Type name and url',
     save: 'Create bookmark'
   },
   edit: {
@@ -13,11 +14,13 @@ export const labels = {
       name: 'Name',
       url: 'Url'
     },
+    description: 'Type name and url',
     save: 'Update bookmark'
   },
   search: {
-    placeholder: 'Search bookmark'
+    placeholder: 'Search bookmark...'
   },
-  title: 'Bookmarker',
-  groups: ['today', 'yesterday', 'others']
+  appTitle: 'Bookmarker',
+  groups: ['today', 'yesterday', 'others'],
+  searchResultsMessage: 'Search results:'
 }
