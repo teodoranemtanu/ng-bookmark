@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,9 +9,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppState } from '../../core/state/app.state';
 import { Store } from '@ngrx/store';
 import * as bookmarkActions from '../../core/state/bookmarks/bookmarks.actions';
-import { Observable } from 'rxjs';
-import { selectSearchActive } from '../../core/state/bookmarks/bookmark.selector';
-import { tap } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -24,18 +24,42 @@ export class HeaderComponent {
   @Input() showSearch: boolean = true;
   @Input() searchLabel = 'Search bookmark';
 
-  searchActive$: Observable<boolean>;
+  private searchTextSubject = new Subject<string>();
 
   searchedText = '';
 
+  subscriptions: Subscription[] = [];
+
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    public router: Router
   ) {
-    this.searchActive$ = this.store.select(selectSearchActive).pipe(
-      tap((searchActive => {
-        this.searchedText = searchActive ? this.searchedText : '';
-      }))
-    );
+
+    const routerSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.searchedText = '';
+        this.store.dispatch(bookmarkActions.clearSearch());
+      }
+    });
+
+    this.subscriptions.push(routerSubscription);
+
+    this.createDebounceLogic();
+
+    this.searchedText = '';
+  }
+
+  createDebounceLogic() {
+    const searchTextSubscription = this.searchTextSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      ).subscribe(searchText => {
+        this.search(searchText.trim());
+      });
+
+
+    this.subscriptions.push(searchTextSubscription);
   }
 
   clear() {
@@ -43,7 +67,19 @@ export class HeaderComponent {
     this.store.dispatch(bookmarkActions.clearSearch());
   }
 
-  search() {
-    this.store.dispatch(bookmarkActions.search({ query: this.searchedText }));
+  search(searchText: string) {
+    if (searchText) {
+      this.store.dispatch(bookmarkActions.search({ query: searchText }));
+    } else {
+      this.store.dispatch(bookmarkActions.clearSearch());
+    }
+  }
+
+  onSearchChange(value: any) {
+    this.searchTextSubject.next(value);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

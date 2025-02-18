@@ -11,7 +11,7 @@ export class FuzzySearchService {
   search(items: Bookmark[], query: string, keys: string[]) {
     const options = {
       keys,
-      threshold: 0.5
+      threshold: 0.6
     };
 
     const fuse = new Fuse(items, options);

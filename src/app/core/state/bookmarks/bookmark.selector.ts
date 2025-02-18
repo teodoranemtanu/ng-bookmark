@@ -18,6 +18,11 @@ export const selectSearchResults = createSelector(
   (state: BookmarkState) => state.searchResults
 );
 
+export const selectSearchQuery = createSelector(
+  selectBookmarks,
+  (state: BookmarkState) => state.searchQuery
+);
+
 export const selectAllBookmarks = createSelector(
   selectBookmarks,
   (state: BookmarkState) => state.bookmarks

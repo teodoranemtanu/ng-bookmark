@@ -8,7 +8,8 @@ export interface BookmarkState {
   error: string | null,
   status: BookmarksStatus,
   searchActive: boolean,
-  searchResults: Bookmark[]
+  searchResults: Bookmark[],
+  searchQuery: string;
 }
 
 export const initialState: BookmarkState = {
@@ -16,7 +17,8 @@ export const initialState: BookmarkState = {
   error: null,
   status: BookmarksStatus.pending,
   searchActive: false,
-  searchResults: []
+  searchResults: [],
+  searchQuery: ''
 }
 
 export const bookmarkReducer = createReducer(
@@ -68,7 +70,8 @@ export const bookmarkReducer = createReducer(
   on(bookmarkActions.search, (state, { query }) => ({
     ...state,
     status: BookmarksStatus.loading,
-    searchActive: true
+    searchActive: true,
+    searchQuery: query
   })),
   on(bookmarkActions.searchSuccess, (state, { searchResults }) => ({
     ...state,
@@ -88,6 +91,7 @@ export const bookmarkReducer = createReducer(
     status: BookmarksStatus.success,
     error: null,
     searchActive: false,
-    searchResults: []
+    searchResults: [],
+    searchQuery: ''
   }))
 );
