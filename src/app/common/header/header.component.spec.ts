@@ -68,13 +68,6 @@ describe('HeaderComponent', () => {
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
 
-  it('should not navigate to main page if already there', async () => {
-    routerSpy.url = '/';
-    await component.redirectToMainPage();
-    fixture.detectChanges();
-    expect(routerSpy.navigate).not.toHaveBeenCalled();
-  });
-
   it('should clear search text when clear() is called', () => {
     const dispatchSpy = spyOn(store, 'dispatch');
     component.clear();

@@ -29,7 +29,7 @@ export class EditComponent implements OnInit {
   editedBookmark: Bookmark;
   labelsPath: any;
 
-  isUpdateButtonDisabled: boolean = false;
+  isUpdateButtonDisabled: boolean = true;
 
   urlPattern = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)?/
 
@@ -50,14 +50,23 @@ export class EditComponent implements OnInit {
     this.labelsPath = this.router.url?.includes('new') ? labels.new : labels.edit;
   }
 
-  async updateBookmark() {
-    if (!this.editedBookmark.name || !this.editedBookmark.url) {
+  validateInputs() {
+    if (!this.editedBookmark.name.trim() || !this.editedBookmark.url) {
+      this.isUpdateButtonDisabled = true;
       return;
     }
 
     if (!isValidUrl(this.editedBookmark.url, this.urlPattern)) {
+      this.isUpdateButtonDisabled = true;
       return;
     }
+
+    this.isUpdateButtonDisabled = false;
+  }
+
+  async updateBookmark() {
+    this.editedBookmark.name = this.editedBookmark.name.trim();
+    this.editedBookmark.url = this.editedBookmark.url.trim();
 
     if (this.router.url.includes('new')) {
       this.store.dispatch(bookmarkActions.add({ name: this.editedBookmark.name, url: this.editedBookmark.url }));

@@ -53,20 +53,33 @@ describe('EditComponent', () => {
     expect(component.labelsPath).toBeDefined();
   });
 
-  it('should not update if name or url is empty', async () => {
-    component.editedBookmark.name = '';
-    component.editedBookmark.url = '';
-    const dispatchSpy = spyOn(store, 'dispatch');
-    await component.updateBookmark();
-    expect(dispatchSpy).not.toHaveBeenCalled();
+  it('should disable the update button when name is empty or url is empty', () => {
+    component.editedBookmark = { name: '', url: '', id: '1', date: new Date() };
+    component.validateInputs();
+    expect(component.isUpdateButtonDisabled).toBeTrue();
+
+    component.editedBookmark = { name: 'Bookmark', url: '', id: '1', date: new Date() };
+    component.validateInputs();
+    expect(component.isUpdateButtonDisabled).toBeTrue();
+
+    component.editedBookmark = { name: '', url: 'https://valid.url', id: '1', date: new Date() };
+    component.validateInputs();
+    expect(component.isUpdateButtonDisabled).toBeTrue();
   });
 
-  it('should not update if URL is invalid', async () => {
-    component.editedBookmark.url = 'invalid-url';
-    const dispatchSpy = spyOn(store, 'dispatch');
-    await component.updateBookmark();
-    expect(dispatchSpy).not.toHaveBeenCalled();
+  it('should disable the update button when the URL is invalid', () => {
+    component.editedBookmark = { name: 'Bookmark', url: 'invalid-url', id: '1', date: new Date() };
+    component.validateInputs();
+    expect(component.isUpdateButtonDisabled).toBeTrue();
   });
+
+  it('should enable the update button when inputs are valid', () => {
+    component.editedBookmark = { name: 'Bookmark', url: 'https://valid.url', id: '1', date: new Date() };
+    component.validateInputs();
+    expect(component.isUpdateButtonDisabled).toBeFalse();
+  });
+
+
 
   it('should dispatch add action if creating a new bookmark', async () => {
     routerSpy.url = '/new';
