@@ -26,7 +26,7 @@ export class HeaderComponent {
   @Input() searchLabel = 'Search bookmark';
   labels = labels;
 
-  private searchTextSubject = new Subject<string>();
+  searchTextSubject = new Subject<string>();
 
   searchedText = '';
 
@@ -81,11 +81,11 @@ export class HeaderComponent {
     this.searchTextSubject.next(value);
   }
 
-  redirectToMainPage() {
-    if (this.router.url === '/') {
+  async redirectToMainPage() {
+    if (this.router.url === '/' || !this.router.url) {
       return;
     }
-    this.router.navigate(['/']);
+    await this.router.navigate(['/']);
   }
 
   ngOnDestroy() {

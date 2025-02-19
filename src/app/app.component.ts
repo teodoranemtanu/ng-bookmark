@@ -11,6 +11,5 @@ import { labels } from '../app/core/constants/labels'
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'ng-bookmark';
   labels = labels;
 }

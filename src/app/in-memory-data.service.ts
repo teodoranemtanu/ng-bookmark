@@ -19,7 +19,6 @@ export class InMemoryDataService {
       },
       {
         id: '65dfb77a-b2a2-416f-ad4a-be296b4b1575', name: 'Angular', url: 'https://angular.dev/', date: new Date()
-
       },
       {
         id: '4cd81fb6-c6ac-49fb-a8d9-8713051d2350', name: 'RxJs', url: 'https://rxjs.dev/guide/operators', date: dayjs().subtract(2, 'day').toDate()

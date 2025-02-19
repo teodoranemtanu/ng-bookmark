@@ -47,7 +47,7 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.labelsPath = this.router.url.includes('new') ? labels.new : labels.edit;
+    this.labelsPath = this.router.url?.includes('new') ? labels.new : labels.edit;
   }
 
   async updateBookmark() {
