@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Bookmark } from '../../core/models/bookmark.model';
 import { Observable, of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators'
+import { switchMap } from 'rxjs/operators'
 import { Router } from '@angular/router';
 import { AppState } from '../../core/state/app.state';
 import { MatFormFieldModule } from '@angular/material/form-field';

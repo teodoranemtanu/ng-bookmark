@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -83,7 +83,7 @@ export class HeaderComponent {
 
   async redirectToMainPage() {
     if (this.router.url === '/' || !this.router.url) {
-      return;
+      return Promise.resolve();
     }
     await this.router.navigate(['/']);
   }

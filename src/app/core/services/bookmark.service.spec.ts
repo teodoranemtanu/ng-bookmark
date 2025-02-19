@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { BookmarkService, SearchBookmarkParams } from './bookmark.service';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { BookmarkService } from './bookmark.service';
 import { Bookmark } from '../models/bookmark.model';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('BookmarkService', () => {
   let service: BookmarkService;
@@ -9,8 +10,8 @@ describe('BookmarkService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [BookmarkService]
+      imports: [],
+      providers: [BookmarkService, provideHttpClient(), provideHttpClientTesting()]
     });
     service = TestBed.inject(BookmarkService);
     httpMock = TestBed.inject(HttpTestingController);

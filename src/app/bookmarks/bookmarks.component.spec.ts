@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
 import { BookmarksComponent } from './bookmarks.component';
 import * as bookmarkActions from '../core/state/bookmarks/bookmarks.actions';
 import { AppState } from '../core/state/app.state';

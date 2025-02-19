@@ -62,15 +62,16 @@ describe('HeaderComponent', () => {
     expect(component.searchTextSubject).toBeTruthy();
   });
 
-  it('should navigate to main page if not already on it', () => {
-    routerSpy.url = '/bookmarks';
-    component.redirectToMainPage();
+  it('should navigate to main page if not already on it', async () => {
+    routerSpy.url = '/edit';
+    await component.redirectToMainPage();
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
 
-  it('should not navigate to main page if already there', () => {
+  it('should not navigate to main page if already there', async () => {
     routerSpy.url = '/';
-    component.redirectToMainPage();
+    await component.redirectToMainPage();
+    fixture.detectChanges();
     expect(routerSpy.navigate).not.toHaveBeenCalled();
   });
 
