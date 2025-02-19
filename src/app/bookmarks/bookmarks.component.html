@@ -1,4 +1,4 @@
-<ng-container *ngIf="(isLoading$ | async) === BookmarksStatus.loading; else content">
+<ng-container *ngIf="(isLoading$ | async)?.status === BookmarksStatus.loading; else content">
   <app-loading-spinner></app-loading-spinner>
 </ng-container>
 <ng-template #content>

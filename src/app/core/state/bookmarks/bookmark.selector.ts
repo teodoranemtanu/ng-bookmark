@@ -30,7 +30,9 @@ export const selectAllBookmarks = createSelector(
 
 export const selectBookmarksStatus = createSelector(
   selectBookmarks,
-  (state: BookmarkState) => state.status
+  (state: BookmarkState) => {
+    return { status: state.status, error: state.error }
+  }
 );
 
 export const selectBookmarkById = createSelector(

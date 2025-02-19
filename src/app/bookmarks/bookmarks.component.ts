@@ -1,4 +1,4 @@
-
+import { sortGroupsByKeyAsc } from './../utils/bookmark-group-utils';
 import { selectBookmarksStatus, selectSearchActive, selectSearchResults } from './../core/state/bookmarks/bookmark.selector';
 import { Bookmark } from './../core/models/bookmark.model';
 import { Component } from '@angular/core';
@@ -7,7 +7,7 @@ import * as bookmarkActions from '../core/state/bookmarks/bookmarks.actions';
 import { selectAllBookmarks, selectGroupedBookmarks } from '../core/state/bookmarks/bookmark.selector';
 import { Observable } from 'rxjs';
 import { AppState } from '../core/state/app.state';
-import { CommonModule, KeyValue, TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { GroupComponent } from './group/group.component';
 import { GroupTypes } from '../core/enums/group-types.enum';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,10 +33,11 @@ export class BookmarksComponent {
 
   searchResult$: Observable<Bookmark[]>;
   searchActive$: Observable<boolean>;
-  isLoading$: Observable<BookmarksStatus>;
+  isLoading$: Observable<{ status: BookmarksStatus, error: string | null }>;
 
   labels = labels;
   BookmarksStatus = BookmarksStatus;
+  sortGroupsByKeyAsc = sortGroupsByKeyAsc;
 
   constructor(
     private store: Store<AppState>,
@@ -56,9 +57,5 @@ export class BookmarksComponent {
   addBookmark() {
     this.store.dispatch(bookmarkActions.clearSearch());
     this.router.navigate(['new']);
-  }
-
-  sortGroupsByKeyAsc = (a: KeyValue<GroupTypes, Bookmark[]>, b: KeyValue<GroupTypes, Bookmark[]>): number => {
-    return a.key - b.key;
   }
 }

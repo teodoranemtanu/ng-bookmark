@@ -32,5 +32,7 @@ export const labels = {
   },
   appTitle: 'Bookmarker',
   groups: ['today', 'yesterday', 'others'],
-  searchResultsMessage: 'Search results:'
+  searchResultsMessage: 'Search results:',
+  saveSuccess: 'The bookmark was saved successfully',
+  error: 'Action could not be completed'
 }

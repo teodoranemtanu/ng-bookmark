@@ -57,3 +57,23 @@ body {
   display: inline-block;
   width: 85%;
 }
+
+.success-snackbar {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #c8e6c9,
+      supporting-text-color: #224a23,
+      button-color: #224a23
+    )
+  );
+}
+
+.error-snackbar {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #ffcdd2,
+      supporting-text-color: #73000c,
+      button-color: #73000c
+    )
+  );
+}

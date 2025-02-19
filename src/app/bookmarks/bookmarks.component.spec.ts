@@ -38,7 +38,7 @@ describe('BookmarksComponent', () => {
     store.overrideSelector(selectGroupedBookmarks, new Map());
     store.overrideSelector(selectSearchActive, false);
     store.overrideSelector(selectSearchResults, []);
-    store.overrideSelector(selectBookmarksStatus, BookmarksStatus.pending);
+    store.overrideSelector(selectBookmarksStatus, { status: BookmarksStatus.pending, error: null });
 
     fixture = TestBed.createComponent(BookmarksComponent);
     component = fixture.componentInstance;

@@ -29,7 +29,7 @@ export const bookmarkReducer = createReducer(
     ...state,
     bookmarks: bookmarks,
     error: null,
-    status: BookmarksStatus.success
+    status: BookmarksStatus.loadSuccess
   })),
   on(bookmarkActions.loadFailure, (state, { error }) => ({
     ...state,
@@ -44,14 +44,13 @@ export const bookmarkReducer = createReducer(
   on(bookmarkActions.addSuccess, (state, { bookmark }) => ({
     ...state,
     bookmarks: [...state.bookmarks, bookmark],
-    status: BookmarksStatus.success
+    status: BookmarksStatus.saveSuccess
   })),
   on(bookmarkActions.addFailure, (state, { error }) => ({
     ...state,
     status: BookmarksStatus.error,
-    error: error
+    error
   })),
-
   on(bookmarkActions.edit, (state, { bookmark }) => ({
     ...state,
     status: BookmarksStatus.loading
@@ -59,7 +58,7 @@ export const bookmarkReducer = createReducer(
   on(bookmarkActions.editSuccess, (state, { bookmark }) => ({
     ...state,
     bookmarks: state.bookmarks.map(item => item.id === bookmark.id ? { ...item, ...bookmark } : item),
-    status: BookmarksStatus.success
+    status: BookmarksStatus.saveSuccess
   })),
   on(bookmarkActions.editFailure, (state, { error }) => ({
     ...state,
@@ -75,7 +74,7 @@ export const bookmarkReducer = createReducer(
   })),
   on(bookmarkActions.searchSuccess, (state, { searchResults }) => ({
     ...state,
-    status: BookmarksStatus.success,
+    status: BookmarksStatus.loadSuccess,
     searchActive: true,
     searchResults
   })),
@@ -88,7 +87,7 @@ export const bookmarkReducer = createReducer(
   })),
   on(bookmarkActions.clearSearch, (state) => ({
     ...state,
-    status: BookmarksStatus.success,
+    status: BookmarksStatus.loadSuccess,
     error: null,
     searchActive: false,
     searchResults: [],

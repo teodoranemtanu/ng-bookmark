@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Bookmark } from '../models/bookmark.model';
 
 export interface SearchBookmarkParams {
@@ -24,6 +24,7 @@ export class BookmarkService {
   }
 
   create(body: Bookmark): Observable<Bookmark> {
+    // return throwError('Error creating bookmark');
     return this.http.post<Bookmark>(this.bookmarksUrl, body);
   }
 

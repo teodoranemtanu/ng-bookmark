@@ -41,7 +41,7 @@ export class BookmarkEffects {
           map(result => {
             return bookmarkActions.addSuccess({ bookmark: result })
           }),
-          catchError(error => { console.log(error); return of(bookmarkActions.addFailure({ error })) }
+          catchError(error => { console.error(error); return of(bookmarkActions.addFailure({ error })) }
           )
         )
       })
@@ -74,7 +74,7 @@ export class BookmarkEffects {
           const searchResults = this.fuzzy.search(bookmarks, query, ['name', 'url']);
           return bookmarkActions.searchSuccess({ searchResults });
         }),
-        catchError(error => of(bookmarkActions.searchFailure({ error })))
+        catchError(error => { console.error(error); return of(bookmarkActions.searchFailure({ error })) })
       ))
     )
   });
